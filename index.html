@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Pera Kitap Kulübü ♡</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@500;600&display=swap');
+:root{--cream:#fffaf4;--paper:#fffdf9;--pink:#e8a3af;--pink2:#f3c7ce;--burg:#713542;--brown:#7a5648;--sage:#a0aa87;--text:#4d3b36}
+*{box-sizing:border-box} 
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: url('pera-cekilis.jpeg') no-repeat center center fixed;
+  background-size: cover;
+  color: var(--text);
+  font-family: "DM Sans", sans-serif;
+}
+body:before,body:after{content:"";position:fixed;z-index:-1;border-radius:50%;opacity:.25;filter:blur(1px)}
+body:before{width:150px;height:150px;background:var(--sage);left:-70px;top:42%} body:after{width:180px;height:180px;background:var(--pink);right:-90px;top:8%}
+main{max-width:920px;margin:auto;padding:38px 20px 55px;text-align:center}
+.brand{font:italic 600 clamp(42px,10vw,76px)/.9 "Playfair Display",serif;color:var(--burg);margin:8px 0 7px}
+.kicker{font-size:12px;letter-spacing:.23em;text-transform:uppercase;color:var(--brown);font-weight:600}
+.tag{display:inline-block;margin:0 auto 28px;color:#9a6d67;font-size:14px}
+.panel{background:rgba(255,253,249,.84);border:1px solid #efd7d0;border-radius:30px;padding:28px 24px;box-shadow:0 20px 70px rgba(113,53,66,.09);backdrop-filter:blur(8px)}
+h2{font:600 27px "Playfair Display",serif;color:var(--burg);margin:0 0 7px}
+p{line-height:1.55;margin:7px 0}
+select{width:min(360px,100%);padding:15px 17px;border:1px solid #dfc3bb;border-radius:16px;background:#fff;color:var(--text);font-size:16px;text-align:center;outline:none;appearance:none;-webkit-appearance:none}
+select:focus{border-color:var(--pink);box-shadow:0 0 0 4px #f8e2e5}
+.primary{display:block;margin:13px auto 0;border:0;border-radius:999px;padding:14px 25px;background:var(--burg);color:white;font-weight:600;cursor:pointer;box-shadow:0 8px 18px #71354224}
+.primary:disabled{opacity:.5;cursor:default}
+.envelopes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:650px;margin:28px auto 0;perspective:900px}
+.env{position:relative;aspect-ratio:1.3;border:1px solid #d89da8;border-radius:18px;background:linear-gradient(150deg,#f7cbd2,#e99eac);box-shadow:0 12px 24px #71354218;cursor:pointer;transition:transform .22s,box-shadow .22s;overflow:visible}
+.env:hover:not(.opening){transform:translateY(-6px) rotate(-1deg);box-shadow:0 18px 30px #71354225}
+.env .front{position:absolute;inset:0;border-radius:18px;overflow:hidden}
+.env .front:before{content:"";position:absolute;inset:0;background:linear-gradient(34deg,transparent 49.3%,#b96d7a 49.6%,transparent 50.5%),linear-gradient(146deg,transparent 49.3%,#b96d7a 49.6%,transparent 50.5%);opacity:.55}
+.env .front:after{content:"♡";position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:34px Georgia;color:#713542}
+.env .flap{position:absolute;left:0;right:0;top:0;height:52%;background:linear-gradient(150deg,#e99eac,#d98a9a);clip-path:polygon(0 0,100% 0,50% 100%);transform-origin:top center;transition:transform .5s cubic-bezier(.4,1.4,.6,1);z-index:3;border-radius:18px 18px 0 0}
+.env .card{position:absolute;left:12%;right:12%;top:14%;bottom:14%;background:var(--paper);border-radius:8px;box-shadow:0 4px 10px rgba(0,0,0,.12);display:flex;align-items:center;justify-content:center;font:italic 600 15px "Playfair Display";color:var(--burg);opacity:0;transform:translateY(0) scale(.85);transition:transform .5s ease .45s,opacity .3s ease .45s;z-index:2;padding:4px;text-align:center}
+.env.opening{cursor:default}
+.env.opening:hover{transform:none}
+.env.opening .flap{transform:rotateX(-165deg)}
+.env.opening .card{opacity:1;transform:translateY(-58%) scale(1)}
+.env.shake{animation:shake .5s ease}
+@keyframes shake{0%,100%{transform:rotate(0)}20%{transform:rotate(-3deg)}40%{transform:rotate(3deg)}60%{transform:rotate(-2deg)}80%{transform:rotate(2deg)}}
+.status{font-size:13px;color:#8b6b63;margin-top:14px;min-height:16px}
+.result{animation:pop .35s ease}.resultName{font:italic 600 clamp(48px,12vw,82px) "Playfair Display";color:var(--burg);margin:13px 0}
+.heart{font-size:28px;color:var(--pink)}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.hidden{display:none!important}
+.err{color:#a13a3a;font-size:13px;background:#fbe9e7;border-radius:12px;padding:10px 14px;margin-top:16px}
+@media(max-width:600px){main{padding:25px 14px 40px}.panel{padding:24px 15px;border-radius:24px}.envelopes{gap:13px}.env .front:after{font-size:27px}.env .card{font-size:12px}}
+</style>
+</head>
+<body>
+<main>
+<div class="kicker">♡ dostluk • kitaplar • sürprizler ♡</div>
+<div class="brand">Pera</div>
+<div class="tag">KİTAP KULÜBÜ</div>
+
+<section id="welcome" class="panel">
+<h2>Hediye çekilişine hoş geldin</h2>
+<p>İsmini seç, sonra sana özel bir zarf seç.<br>İçindeki isim yalnızca sana gösterilecek. ♡</p>
+<div style="margin-top:19px">
+  <select id="name">
+    <option value="" disabled selected>İsmini seç...</option>
+  </select>
+</div>
+<button class="primary" id="enterBtn">Zarfları Göster</button>
+<div id="setupErr" class="err hidden"></div>
+</section>
+
+<section id="draw" class="panel hidden">
+<h2 id="hello"></h2>
+<p id="drawSub">Bir zarf seç. ✉️</p>
+<div id="envelopes" class="envelopes"></div>
+<div id="remaining" class="status"></div>
+</section>
+
+<section id="result" class="panel hidden result">
+<div class="heart">♡</div>
+<div class="kicker">senin çekilişin</div>
+<div id="resultName" class="resultName"></div>
+<p>Bu isim sana ait. Sürprizi bozma! ♡</p>
+</section>
+</main>
+
+<script type="module">
+/* ============ AYARLAR ============
+   1) PEOPLE listesine katılımcı isimlerini yaz (senin dahil).
+   2) Kendi Firebase projenin bilgilerini firebaseConfig içine yapıştır.
+      (README.md içinde adım adım anlatım var.) */
+const PEOPLE = ["Havva","Eda","İrem","Zeynep Çakmak","Zeynep Bostancı","Seda"];
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDk4S9XdDpM7mc0vJAxwxKkRpA9iRNLEN8",
+  authDomain: "pera-cekilis.firebaseapp.com",
+  projectId: "pera-cekilis",
+  storageBucket: "pera-cekilis.firebasestorage.app",
+  messagingSenderId: "602062221128",
+  appId: "1:602062221128:web:3a5eab69904c7f1fa30d7d",
+  measurementId: "G-0662ZH7H28"
+};
+/* ================================== */
+
+const sel = document.getElementById("name");
+PEOPLE.forEach(p=>{const o=document.createElement("option");o.value=p;o.textContent=p;sel.appendChild(o);});
+
+const setupErr = document.getElementById("setupErr");
+function showSetupError(msg){
+  setupErr.textContent = msg;
+  setupErr.classList.remove("hidden");
+  document.getElementById("enterBtn").disabled = true;
+}
+
+if (firebaseConfig.apiKey.includes("BURAYA")) {
+  showSetupError("Site henüz bir veritabanına bağlı değil. index.html içindeki firebaseConfig alanını kendi Firebase bilgilerinle doldurman gerekiyor (README.md'ye bak).");
+} else {
+  runApp();
+}
+
+async function runApp(){
+  const { initializeApp } = await import("https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js");
+  const { getFirestore, doc, getDoc, setDoc, updateDoc, runTransaction, onSnapshot } =
+    await import("https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js");
+
+  let app, db, stateRef;
+  try{
+    app = initializeApp(firebaseConfig);
+    db = getFirestore(app);
+    stateRef = doc(db, "pera-cekilis", "state");
+  }catch(e){
+    showSetupError("Firebase'e bağlanırken bir sorun oldu. firebaseConfig bilgilerini kontrol et.");
+    return;
+  }
+
+  function derangement(list){
+    let names = [...list];
+    for(let tries=0; tries<200; tries++){
+      const shuffled = [...names].sort(()=>Math.random()-.5);
+      if (shuffled.every((n,i)=>n!==names[i])) {
+        const map = {};
+        names.forEach((n,i)=>map[n]=shuffled[i]);
+        return map;
+      }
+    }
+    // yedek: basit rotasyon (kimse kendine çıkmaz)
+    const map = {};
+    names.forEach((n,i)=>map[n]=names[(i+1)%names.length]);
+    return map;
+  }
+
+  async function ensureState(){
+    try{
+      await runTransaction(db, async (tx)=>{
+        const snap = await tx.get(stateRef);
+        if (!snap.exists()){
+          tx.set(stateRef, { assignments: derangement(PEOPLE), revealed: {} });
+        }
+      });
+    }catch(e){
+      showSetupError("Veritabanına yazılamadı. Firestore'un aktif olduğundan ve güvenlik kurallarının izin verdiğinden emin ol (README.md).");
+      throw e;
+    }
+  }
+
+  let currentState = null;
+  onSnapshot(stateRef, (snap)=>{
+    currentState = snap.data() || null;
+    if (!document.getElementById("draw").classList.contains("hidden")) render();
+  }, ()=>{ showSetupError("Veritabanı okunamadı. Bağlantını ve güvenlik kurallarını kontrol et."); });
+
+  await ensureState();
+
+  let current = "";
+  document.getElementById("enterBtn").onclick = async ()=>{
+    const v = sel.value;
+    if (!v){ alert("Lütfen listeden ismini seç."); return; }
+    current = v;
+    document.getElementById("welcome").classList.add("hidden");
+
+    if (!currentState){ const s = await getDoc(stateRef); currentState = s.data(); }
+
+    if (currentState.revealed && currentState.revealed[current]){
+      showResult(currentState.assignments[current]);
+      return;
+    }
+    document.getElementById("draw").classList.remove("hidden");
+    render();
+  };
+
+  function render(){
+    if (!currentState) return;
+    const box = document.getElementById("envelopes"); box.innerHTML = "";
+    const revealed = currentState.revealed || {};
+    const remainingCount = PEOPLE.filter(n=>!revealed[n]).length;
+    document.getElementById("hello").textContent = current + ", sıra sende";
+    for (let i=0;i<remainingCount;i++){
+      const b = document.createElement("button");
+      b.className = "env"; b.setAttribute("aria-label","Zarf");
+      b.innerHTML = '<div class="flap"></div><div class="front"></div><div class="card"></div>';
+      b.onclick = ()=>openEnvelope(b);
+      box.appendChild(b);
+    }
+    document.getElementById("remaining").textContent = remainingCount + " zarf kaldı";
+  }
+
+  let opened = false;
+  async function openEnvelope(btn){
+    if (opened) return; opened = true;
+    document.querySelectorAll(".env").forEach(e=>e.style.pointerEvents="none");
+
+    btn.classList.add("shake");
+    await sleep(500);
+    btn.classList.remove("shake");
+    btn.classList.add("opening");
+    btn.querySelector(".card").textContent = "♡";
+
+    try{
+      await updateDoc(stateRef, { [`revealed.${current}`]: true });
+    }catch(e){
+      // devam et, yerelde sonucu yine de gösteriyoruz
+    }
+
+    await sleep(1000);
+    const recipient = currentState.assignments[current];
+    document.getElementById("draw").classList.add("hidden");
+    showResult(recipient);
+  }
+
+  function showResult(name){
+    document.getElementById("result").classList.remove("hidden");
+    document.getElementById("resultName").textContent = name;
+  }
+
+  function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+}
+</script>
+</body>
+</html>
